@@ -68,7 +68,7 @@ private JButton deleteButton;
         gbc4.gridy = 2;
         gbc4.weightx = 0.5;
         gbc4.weighty = 0.01;
-        moveDownButton = new JButton("move down");
+        moveDownButton = new JButton("Move down");
 
         GridBagConstraints gbc5 = new GridBagConstraints();
         gbc5.gridx = 0;
