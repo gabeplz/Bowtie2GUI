@@ -2,6 +2,8 @@ import java.beans.PropertyChangeEvent;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,13 +14,26 @@ public class Context implements PropertyChangeListener {
     private int fileMode;
     ArrayList<String> readPathways1 = new ArrayList<>();
     ArrayList<String> readPathways2 = new ArrayList<>();
-
+    ArrayList<String> referencePathways = new ArrayList<>();
 
 
     public Context(GUI gui) {
+
         this.gui = gui;
         this.addPropertyChangeListener(this);
+       // try{
+            scrijf();
+      //  } catch (IOException e){
 
+        //}
+
+    }
+
+    public void scrijf(){
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        InputStream defaultProperties = classLoader.getResourceAsStream("ikbengeschreven.txt");
+        System.out.println(GUI.class.getResource("GUI.class"));
     }
 
     public void setFileMode(int x) {
@@ -71,6 +86,24 @@ public class Context implements PropertyChangeListener {
     public void swapIndex1(int index1, int index2){
         Collections.swap(readPathways1, index1, index2);
     }
+
+    public void deleteReferencePathway(int index){
+        referencePathways.remove(index);
+    }
+
+    public ArrayList<String> getReferencePathways(){
+        return this.referencePathways;
+    }
+
+    public void addReferencePathway(){
+        FileChooser chooser = new FileChooser();
+        String path = chooser.startChooser();
+        System.out.println(path);
+        if (path != "") {
+            referencePathways.add(path);
+        }
+    }
+
 
     public void propertyChangeIsMandatory(){
         pcs.firePropertyChange("gff", null, null);

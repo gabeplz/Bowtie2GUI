@@ -29,7 +29,7 @@ private JButton deleteButton;
     public void init() {
         this.setBackground(Color.GRAY);
         this.setLayout(new GridBagLayout());
-        this.setPreferredSize(new Dimension(400, 400));
+        this.setPreferredSize(new Dimension(380, 300));
         addElements();
     }
 
