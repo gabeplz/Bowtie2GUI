@@ -23,7 +23,7 @@ public class FileTypePanel extends BasicPanel implements PropertyChangeListener{
     }
 
     public void init() {
-        this.setBackground(Color.GRAY);
+      //  this.setBackground(Color.GRAY);
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(200, 50));
         makeFileBoxes();
@@ -45,6 +45,7 @@ public class FileTypePanel extends BasicPanel implements PropertyChangeListener{
                 cont.setFileMode(1);
             }
         });
+
         pairedSingle = new JRadioButton("2 pairedSingle");
         pairedSingle.addActionListener(new ActionListener() {
             @Override

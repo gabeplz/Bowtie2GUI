@@ -11,7 +11,8 @@ public class ReferencePanel extends BasicPanel implements PropertyChangeListener
     private JList<String> selectedFilesList;
     private JButton browseButton;
     private JButton deleteButton;
-
+    private JLabel referenceLabel;
+    private TextField indexName;
 
 
     public ReferencePanel(Context context){
@@ -23,8 +24,9 @@ public class ReferencePanel extends BasicPanel implements PropertyChangeListener
     }
 
     public void init() {
-        this.setBackground(Color.GRAY);
-        this.setLayout(new FlowLayout());
+        //this.setBackground(Color.GRAY);
+       // this.setLayout(new FlowLayout());
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.setPreferredSize(new Dimension(200, 100));
         addElements();
     }
@@ -37,9 +39,13 @@ public class ReferencePanel extends BasicPanel implements PropertyChangeListener
         selectedFilesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         selectedFiles.setViewportView(selectedFilesList);
         selectedFiles.setPreferredSize(new Dimension(400,80));
+        selectedFiles.setMaximumSize(new Dimension(500,10));
 
         browseButton = new JButton("choose file");
-        deleteButton = new JButton("Delete");
+        deleteButton = new JButton("Delete file");
+
+        referenceLabel = new JLabel("dadadccccccccccccccccc   ccc");
+
 
         browseButton.addActionListener(new ActionListener() {
             @Override
@@ -57,9 +63,22 @@ public class ReferencePanel extends BasicPanel implements PropertyChangeListener
             }
         });
 
+        indexName = new TextField();
+
+        referenceLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //i   setAlignmentX(Component.LEFT_ALIGNMENT);
+        selectedFiles.setAlignmentX(Component.LEFT_ALIGNMENT);
+        browseButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        deleteButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+
+        this.add(referenceLabel);
+       // this.add(indexName);
+
+        this.add(selectedFiles);
         this.add(browseButton);
         this.add(deleteButton);
-        this.add(selectedFiles);
+
     }
 
     public void fillModel() {

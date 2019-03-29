@@ -67,11 +67,20 @@ public class GUI {
      //   gbcFileType.anchor = GridBagConstraints.PAGE_START;
         frame.getContentPane().add(fileTypePanel,gbcFileType);
 
+        NamingPanel namingPanel = new NamingPanel(context);
+        GridBagConstraints gbcNamingPanel = new GridBagConstraints();
+        gbcNamingPanel.fill = GridBagConstraints.HORIZONTAL;
+        gbcNamingPanel.gridx = 0;
+        gbcNamingPanel.gridy = 1;
+        gbcNamingPanel.gridwidth = 2;
+        //   gbcFileType.anchor = GridBagConstraints.PAGE_START;
+        frame.getContentPane().add(namingPanel,gbcNamingPanel);
+
         ReferencePanel referencePanel = new ReferencePanel(context);
         GridBagConstraints gbcReferencePanel = new GridBagConstraints();
         gbcReferencePanel.fill = GridBagConstraints.HORIZONTAL;
         gbcReferencePanel.gridx = 0;
-        gbcReferencePanel.gridy = 1;
+        gbcReferencePanel.gridy = 2;
         gbcReferencePanel.gridwidth = 2;
         //   gbcFileType.anchor = GridBagConstraints.PAGE_START;
         frame.getContentPane().add(referencePanel,gbcReferencePanel);
@@ -80,25 +89,27 @@ public class GUI {
         FileListPanelLeft fileListPanelLeft = new FileListPanelLeft(context);
         GridBagConstraints gbcFileListPanelLeft = new GridBagConstraints();
         gbcFileListPanelLeft.gridx = 0;
-        gbcFileListPanelLeft.gridy = 2;
+        gbcFileListPanelLeft.gridy = 3;
         frame.getContentPane().add(fileListPanelLeft,gbcFileListPanelLeft);
 
 
         FileListPanelRight fileListPanelRight = new FileListPanelRight(context);
         GridBagConstraints gbcFileListPanelRight = new GridBagConstraints();
         gbcFileListPanelRight.gridx = 1;
-        gbcFileListPanelRight.gridy = 2;
+        gbcFileListPanelRight.gridy = 3;
         gbcFileListPanelRight.weightx = 0.5;
         frame.getContentPane().add(fileListPanelRight,gbcFileListPanelRight);
 
 
 
-        FileTypePanel fileTypePanel3 = new FileTypePanel(context);
-        GridBagConstraints gbcFileType3 = new GridBagConstraints();
-        gbcFileType3.fill = GridBagConstraints.HORIZONTAL;
-        gbcFileType3.gridx = 0;
-        gbcFileType3.gridy = 3;
-        gbcFileType3.gridwidth = 2;
-        frame.getContentPane().add(fileTypePanel3,gbcFileType3);
+        BottomPanel bottomPanel = new BottomPanel(context);
+        GridBagConstraints gbcbottomPanel = new GridBagConstraints();
+        gbcbottomPanel.fill = GridBagConstraints.HORIZONTAL;
+        gbcbottomPanel.gridx = 0;
+        gbcbottomPanel.gridy = 4;
+        gbcbottomPanel.gridwidth = 2;
+        frame.getContentPane().add(bottomPanel,gbcbottomPanel);
     }
+    public void dialog(){}
+
 }

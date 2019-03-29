@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 
 import java.beans.PropertyChangeListener;
@@ -12,9 +14,9 @@ public class Context implements PropertyChangeListener {
     GUI gui;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private int fileMode;
-    ArrayList<String> readPathways1 = new ArrayList<>();
-    ArrayList<String> readPathways2 = new ArrayList<>();
-    ArrayList<String> referencePathways = new ArrayList<>();
+    private ArrayList<String> readPathways1 = new ArrayList<>();
+    private ArrayList<String> readPathways2 = new ArrayList<>();
+    private ArrayList<String> referencePathways = new ArrayList<>();
 
 
     public Context(GUI gui) {
@@ -30,23 +32,23 @@ public class Context implements PropertyChangeListener {
     }
 
     public void scrijf(){
-        ClassLoader classLoader = getClass().getClassLoader();
+        //ClassLoader classLoader = getClass().getClassLoader();
 
-        InputStream defaultProperties = classLoader.getResourceAsStream("ikbengeschreven.txt");
+       // InputStream defaultProperties = classLoader.getResourceAsStream("ikbengeschreven.txt");
         System.out.println(GUI.class.getResource("GUI.class"));
     }
 
     public void setFileMode(int x) {
         if (x == 1) {
-            fileMode = x;
+            this.fileMode = x;
             pcs.firePropertyChange("pairedSeparate", null, null);
         }
         if (x == 2) {
-            fileMode = x;
+            this.fileMode = x;
             pcs.firePropertyChange("pairedSingle", null, null);
         }
         if (x == 3) {
-            fileMode = x;
+            this.fileMode = x;
             pcs.firePropertyChange("unPaired", null, null);
         }
     }
@@ -60,9 +62,10 @@ public class Context implements PropertyChangeListener {
         String path = chooser.startChooser();
         System.out.println(path);
         if (path != "") {
-            readPathways1.add(path);
+            this.readPathways1.add(path);
         }
     }
+
     public ArrayList<String> getReadPathways2(){
         return this.readPathways2;
     }
@@ -72,23 +75,23 @@ public class Context implements PropertyChangeListener {
         String path = chooser.startChooser();
         System.out.println(path);
         if (path != "") {
-            readPathways2.add(path);
+            this.readPathways2.add(path);
         }
     }
 
     public void deleteReadPathway1(int index){
-        readPathways1.remove(index);
+        this.readPathways1.remove(index);
     }
     public void deleteReadPathway2(int index){
-        readPathways2.remove(index);
+        this.readPathways2.remove(index);
     }
 
     public void swapIndex1(int index1, int index2){
-        Collections.swap(readPathways1, index1, index2);
+        Collections.swap(this.readPathways1, index1, index2);
     }
 
     public void deleteReferencePathway(int index){
-        referencePathways.remove(index);
+        this.referencePathways.remove(index);
     }
 
     public ArrayList<String> getReferencePathways(){
@@ -100,8 +103,39 @@ public class Context implements PropertyChangeListener {
         String path = chooser.startChooser();
         System.out.println(path);
         if (path != "") {
-            referencePathways.add(path);
+            this.referencePathways.add(path);
         }
+    }
+
+    public void collectBowtieBuildData(String indexName, String samName){
+        String pathdeel1 = GUI.class.getResource("GUI.class").toString();
+        String pathdeel2 = pathdeel1.split("/",2 )[1];
+
+        String pathdeel3 = pathdeel2.substring(0, pathdeel2.lastIndexOf("!"));
+        //String pathdeel3 = pathdeel2.substring(0, pathdeel2.lastIndexOf("/"));
+
+        String pathdeel4 = pathdeel3.substring(0, pathdeel3.lastIndexOf("/"));
+        String pathdeel5 = ("/"+pathdeel4);
+        System.out.println(pathdeel5+"kaas");
+
+
+        CommandBuilder.build(pathdeel5, indexName, getReferencePathways());
+
+        if (this.fileMode == 1 || this.fileMode == 0) {
+            CommandBuilder.mapSeparate(pathdeel5, indexName, samName, getReadPathways1(), getReadPathways2());
+        }
+        if (this.fileMode == 2){
+            CommandBuilder.mapInterleaved(pathdeel5, indexName, samName, getReadPathways1());
+        }
+
+
+
+        System.out.println("is het klaar");
+
+
+
+
+
     }
 
 

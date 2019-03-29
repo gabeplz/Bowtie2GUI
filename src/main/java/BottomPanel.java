@@ -6,9 +6,7 @@ import java.beans.PropertyChangeListener;
 
 public class BottomPanel extends BasicPanel implements PropertyChangeListener {
 
-    private JRadioButton pairedSingle;
-    private JRadioButton pairedSeparate;
-    private JRadioButton unpaired;
+    private JButton startButton;
 
 
 
@@ -22,49 +20,31 @@ public class BottomPanel extends BasicPanel implements PropertyChangeListener {
     }
 
     public void init() {
-        this.setBackground(Color.GRAY);
+        //this.setBackground(Color.GRAY);
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(200, 50));
-        makeFileBoxes();
+
         addElements();
 
     }
     private void addElements() {
-        this.add(pairedSeparate);
-        this.add(pairedSingle);
-        this.add(unpaired);
+        startButton = new JButton("start mapping");
+
+
+
+        this.add(startButton);
+
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(NamingPanel.samName.getText());
+                cont.collectBowtieBuildData(NamingPanel.indexName.getText(),NamingPanel.samName.getText());
+            }
+        });
     }
-    private void makeFileBoxes(){
 
-        pairedSeparate = new JRadioButton("1 pairedSeparate");
-        pairedSeparate.setSelected(true);
-        pairedSeparate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cont.setFileMode(1);
-            }
-        });
-        pairedSingle = new JRadioButton("2 pairedSingle");
-        pairedSingle.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cont.setFileMode(2);
 
-            }
-        });
-        unpaired = new JRadioButton("3 unpaired");
-        unpaired.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cont.setFileMode(3);
-            }
-        });
 
-        ButtonGroup group = new ButtonGroup();
-        group.add(pairedSeparate);
-        group.add(pairedSingle);
-        group.add(unpaired);
-    }
 
     @Override
     public void setListeners() {
