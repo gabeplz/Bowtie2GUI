@@ -14,7 +14,7 @@ public class FileListPanelRight extends BasicPanel implements PropertyChangeList
     private JButton moveUpButton;
     private JButton moveDownButton;
     private JButton deleteButton;
-    private Box box;
+    private JLabel fileListLabel;
 
     public FileListPanelRight(Context context) {
         super();
@@ -62,7 +62,7 @@ public class FileListPanelRight extends BasicPanel implements PropertyChangeList
         gbc2.gridy = 0;
         gbc2.weightx = 0.01;
         gbc2.weighty = 0.01;
-        browseButton = new JButton("choose file");
+        browseButton = new JButton("choose read file");
 
 
         GridBagConstraints gbc3 = new GridBagConstraints();
@@ -86,6 +86,12 @@ public class FileListPanelRight extends BasicPanel implements PropertyChangeList
         gbc5.weighty = 0.01;
         deleteButton = new JButton("Delete");
 
+        GridBagConstraints gbc6 = new GridBagConstraints();
+        gbc6.gridx = 0;
+        gbc6.gridy = 0;
+        gbc6.weightx = 0.01;
+        gbc6.weighty = 0.01;
+        fileListLabel = new JLabel("file list 2 *?*");
 
         browseButton.addActionListener(new ActionListener() {
             @Override
@@ -95,10 +101,31 @@ public class FileListPanelRight extends BasicPanel implements PropertyChangeList
             }
         });
 
+        moveUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedFilesList.getSelectedIndex() != 0){
+                    System.out.println(selectedFilesList.getSelectedIndex());
+                    cont.swapIndex2(selectedFilesList.getSelectedIndex(), selectedFilesList.getSelectedIndex()-1);
+                    fillModel();
+                }
+            }
+        });
+
+        moveDownButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedFilesList.getSelectedIndex() != selectedFilesList.getModel().getSize()-1) {
+                    cont.swapIndex2(selectedFilesList.getSelectedIndex(), selectedFilesList.getSelectedIndex() + 1);
+                    fillModel();
+                }
+            }
+        });
+
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cont.addReadPathway2();
+                cont.deleteReadPathway1(selectedFilesList.getSelectedIndex());
                 fillModel();
             }
         });
@@ -108,6 +135,7 @@ public class FileListPanelRight extends BasicPanel implements PropertyChangeList
         this.add(moveUpButton, gbc3);
         this.add(moveDownButton, gbc4);
         this.add(deleteButton, gbc5);
+        this.add(fileListLabel, gbc6);
 
 
     }

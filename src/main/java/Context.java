@@ -62,7 +62,13 @@ public class Context implements PropertyChangeListener {
         String path = chooser.startChooser();
         System.out.println(path);
         if (path != "") {
-            this.readPathways1.add(path);
+            if (path.substring(path.lastIndexOf(".")).equals(".fastq") || path.substring(path.lastIndexOf(".")).equals(".fq")) {
+                this.readPathways1.add(path);
+            } else {
+                JOptionPane.showMessageDialog(null, "<html> this file does not have a expected fastQ extention. since there is no standard for fastQ extentions <br /> " +
+                        "you are able to add this to the list. Remove this file from the list if no sam files are made when you pressed the start mapping button. (and check the map_process_log to see if this file was the error) </html>");
+                this.readPathways1.add(path);
+                }
         }
     }
 
@@ -75,7 +81,14 @@ public class Context implements PropertyChangeListener {
         String path = chooser.startChooser();
         System.out.println(path);
         if (path != "") {
-            this.readPathways2.add(path);
+            if (path.substring(path.lastIndexOf(".")).equals(".fastq") || path.substring(path.lastIndexOf(".")).equals(".fq") ) {
+                this.readPathways2.add(path);
+            } else {
+                JOptionPane.showMessageDialog(null, "<html> this file does not have a expected fastQ extention. since there is no standard for fastQ extentions <br /> " +
+                        "you are able to add this to the list. Remove this file from the list if no sam files are made when you pressed the start mapping button. (and check the map_process_log to see if this file was the error) </html>");
+                this.readPathways2.add(path);
+                   }
+
         }
     }
 
@@ -89,6 +102,9 @@ public class Context implements PropertyChangeListener {
     public void swapIndex1(int index1, int index2){
         Collections.swap(this.readPathways1, index1, index2);
     }
+    public void swapIndex2(int index1, int index2){
+        Collections.swap(this.readPathways2, index1, index2);
+    }
 
     public void deleteReferencePathway(int index){
         this.referencePathways.remove(index);
@@ -101,13 +117,24 @@ public class Context implements PropertyChangeListener {
     public void addReferencePathway(){
         FileChooser chooser = new FileChooser();
         String path = chooser.startChooser();
-        System.out.println(path);
+        System.out.println(path.substring(path.lastIndexOf(".")));
         if (path != "") {
-            this.referencePathways.add(path);
+            if (path.substring(path.lastIndexOf(".")).equals(".fasta") || path.substring(path.lastIndexOf(".")).equals(".fna") || path.substring(path.lastIndexOf(".")).equals(".fa") ) {
+                this.referencePathways.add(path);
+            } else { JOptionPane.showMessageDialog(null, "<html> this file does not have a expected fasta extention. since there is no standard for fasta extentions <br /> " +
+                    "you are able to add this to the list. Remove this file from the list if no index files are made when you pressed the start mapping button. (and check the build_process_log to see if this file was the error) </html>");
+                    this.referencePathways.add(path);
+            }
+
+
         }
     }
 
     public void collectBowtieBuildData(String indexName, String samName){
+
+
+
+
         String pathdeel1 = GUI.class.getResource("GUI.class").toString();
         String pathdeel2 = pathdeel1.split("/",2 )[1];
 
@@ -118,23 +145,40 @@ public class Context implements PropertyChangeListener {
         String pathdeel5 = ("/"+pathdeel4);
         System.out.println(pathdeel5+"kaas");
 
+        if(getReferencePathways().size() != 0) {
 
-        CommandBuilder.build(pathdeel5, indexName, getReferencePathways());
+            CommandBuilder.build(pathdeel5, indexName, getReferencePathways());
+            System.out.println(pathdeel5 + "kaas");
+            System.out.println(pathdeel5 + "kaas");
 
-        if (this.fileMode == 1 || this.fileMode == 0) {
-            CommandBuilder.mapSeparate(pathdeel5, indexName, samName, getReadPathways1(), getReadPathways2());
-        }
-        if (this.fileMode == 2){
-            CommandBuilder.mapInterleaved(pathdeel5, indexName, samName, getReadPathways1());
-        }
+            if (this.fileMode == 1 || this.fileMode == 0) {
+                if (getReadPathways1().size() != 0 && getReadPathways2().size() != 0) {
+                    CommandBuilder.mapSeparate(pathdeel5, indexName, samName, getReadPathways1(), getReadPathways2());
+                } else {
+                    JOptionPane.showMessageDialog(null, "please, select a file in filelist 1 and file list 2");
+                }
+            }
+            if (this.fileMode == 2) {
+                if (getReadPathways1().size() != 0) {
+                    CommandBuilder.mapInterleaved(pathdeel5, indexName, samName, getReadPathways1());
+                } else {
+                    JOptionPane.showMessageDialog(null, "please, select a file in filelist 1");
+                }
+            }
+
+            if (this.fileMode == 3) {
+                if (getReadPathways1().size() != 0) {
+                    CommandBuilder.mapUnpaired(pathdeel5, indexName, samName, getReadPathways1());
+                } else {
+                    JOptionPane.showMessageDialog(null, "please, select a file in filelist 1");
+                }
+            }
 
 
-
-        System.out.println("is het klaar");
-
+            System.out.println("is het klaar");
 
 
-
+        } else { JOptionPane.showMessageDialog(null, "please, select a reference file"); }
 
     }
 

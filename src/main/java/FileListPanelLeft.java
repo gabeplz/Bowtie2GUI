@@ -17,6 +17,7 @@ private JButton browseButton;
 private JButton moveUpButton;
 private JButton moveDownButton;
 private JButton deleteButton;
+private JLabel fileListLabel;
 
     public FileListPanelLeft(Context context) {
         super();
@@ -49,12 +50,14 @@ private JButton deleteButton;
         selectedFiles.setViewportView(selectedFilesList);
 
 
+
+
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.gridx = 1;
         gbc2.gridy = 0;
         gbc2.weightx = 0.01;
         gbc2.weighty = 0.01;
-        browseButton = new JButton("choose file");
+        browseButton = new JButton("choose read file");
       //  browseButton.setAlignmentX(0);
         GridBagConstraints gbc3 = new GridBagConstraints();
         gbc3.gridx = 0;
@@ -76,6 +79,21 @@ private JButton deleteButton;
         gbc5.weightx = 0.5;
         gbc5.weighty = 0.01;
         deleteButton = new JButton("Delete");
+
+        GridBagConstraints gbc6 = new GridBagConstraints();
+        gbc6.gridx = 0;
+        gbc6.gridy = 0;
+        gbc6.weightx = 0.01;
+        gbc6.weighty = 0.01;
+        fileListLabel = new JLabel("file list 1 *?*");
+        fileListLabel.setToolTipText("<html>select 1 or more fastq files containing the reads here. <br />" +
+                "list 1 should only contain: <br />" +
+                "Files with mate 1 of the read pairs (reads_1.fastq <br />" +
+                "Or files with both reads in the same file.<br />" +
+                "Or files with unpaired reads.<br />" +
+                "<br />" +
+                "if you use paired reads in separate files, make sure that the files are <br />on the same positions in the left and right list.</html>");
+
 
         browseButton.addActionListener(new ActionListener() {
             @Override
@@ -124,6 +142,7 @@ private JButton deleteButton;
         this.add(moveUpButton, gbc3);
         this.add(moveDownButton, gbc4);
         this.add(deleteButton, gbc5);
+        this.add(fileListLabel, gbc6);
 
     }
 

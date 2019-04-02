@@ -37,7 +37,13 @@ public class NamingPanel extends BasicPanel implements PropertyChangeListener {
         samName.setMaximumSize(new Dimension(300, 70));
 
         indexLabel = new JLabel("name for the bowtie2 index.   *?*");
-        samLabel = new JLabel("name for the resulting SAM file of the mapping.   *?*");
+        indexLabel.setToolTipText("<html>the index is a collection of files bowtie2 creates with the reference sequence that allows <br />" +
+                "bowtie to allign sequences faster.<br />" +
+                "its recomended that the index name is based off the name of the reference sequence.<br />" +
+                "this program will always build a new index and overwrite existing indexes if they have the same name.</html>");
+
+        samLabel = new JLabel("<html>name for the resulting SAM file of the mapping.   *?*</html>");
+        samLabel.setToolTipText("d");
         emptyLabel = new JLabel("");
 
         this.add(indexLabel);

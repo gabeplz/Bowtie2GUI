@@ -44,7 +44,7 @@ public class ReferencePanel extends BasicPanel implements PropertyChangeListener
         browseButton = new JButton("choose file");
         deleteButton = new JButton("Delete file");
 
-        referenceLabel = new JLabel("dadadccccccccccccccccc   ccc");
+        referenceLabel = new JLabel("Reference sequence files");
 
 
         browseButton.addActionListener(new ActionListener() {
@@ -73,7 +73,7 @@ public class ReferencePanel extends BasicPanel implements PropertyChangeListener
 
 
         this.add(referenceLabel);
-       // this.add(indexName);
+
 
         this.add(selectedFiles);
         this.add(browseButton);
