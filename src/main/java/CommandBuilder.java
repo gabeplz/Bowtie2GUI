@@ -65,6 +65,8 @@ public class CommandBuilder {
         try{
             String[] commandline = {
                     pathdeel5+"/bowtie2",
+                    "-k",
+                    "3",
                     "-x",
                     pathdeel5+"/"+indexName,
                     "-1",
@@ -111,6 +113,8 @@ public class CommandBuilder {
         try{
             String[] commandline = {
                     pathdeel5+"/bowtie2",
+                    "-k",
+                    "3",
                     "-x",
                     pathdeel5+"/"+indexName,
                     "--interleaved",
@@ -125,12 +129,18 @@ public class CommandBuilder {
             ProcessBuilder pb3 = new ProcessBuilder(commandline);
             Process proc3 = pb3.start();
             InputStream inError = proc3.getErrorStream();
-            //   InputStream is2 = proc2.getInputStream();
-            int c2;
+            File targetFile = new File(pathdeel5+"/"+samName+"_map_process_log.txt");
+            OutputStream outStream = new FileOutputStream(targetFile);
 
-            while ((c2 = inError.read()) != -1) {
-                System.out.print((char) c2);
+            byte[] buffer = new byte[8 * 1024];
+            int bytesRead;
+
+            while ((bytesRead = inError.read(buffer)) != -1) {
+                outStream.write(buffer, 0, bytesRead);
+
             }
+            inError.close();
+            outStream.close();
 
         }
         catch (Exception err) {
@@ -151,6 +161,7 @@ public class CommandBuilder {
         try{
             String[] commandline = {
                     pathdeel5+"/bowtie2",
+                    "-f",
                     "-x",
                     pathdeel5+"/"+indexName,
                     "-U",
@@ -165,12 +176,18 @@ public class CommandBuilder {
             ProcessBuilder pb4 = new ProcessBuilder(commandline);
             Process proc4 = pb4.start();
             InputStream inError = proc4.getErrorStream();
-            //   InputStream is2 = proc2.getInputStream();
-            int c2;
+            File targetFile = new File(pathdeel5+"/"+samName+"_map_process_log.txt");
+            OutputStream outStream = new FileOutputStream(targetFile);
 
-            while ((c2 = inError.read()) != -1) {
-                System.out.print((char) c2);
+            byte[] buffer = new byte[8 * 1024];
+            int bytesRead;
+
+            while ((bytesRead = inError.read(buffer)) != -1) {
+                outStream.write(buffer, 0, bytesRead);
+
             }
+            inError.close();
+            outStream.close();
 
         }
         catch (Exception err) {
