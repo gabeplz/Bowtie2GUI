@@ -65,8 +65,7 @@ public class CommandBuilder {
         try{
             String[] commandline = {
                     pathdeel5+"/bowtie2",
-                    "-k",
-                    "3",
+
                     "-x",
                     pathdeel5+"/"+indexName,
                     "-1",
@@ -158,9 +157,12 @@ public class CommandBuilder {
         String readPathways1Joined = String.join(",", readPathways1);
 
 
+   //     "-D 20 -R 3 -L 3 -N 1 --mp 3",
+   //             "-f",
         try{
             String[] commandline = {
                     pathdeel5+"/bowtie2",
+                    "-D 20 -R 3 -L 3 -N 1 --mp 3",
                     "-f",
                     "-x",
                     pathdeel5+"/"+indexName,
