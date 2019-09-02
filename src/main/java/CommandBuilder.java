@@ -162,7 +162,7 @@ public class CommandBuilder {
         try{
             String[] commandline = {
                     pathdeel5+"/bowtie2",
-                    "-D 20 -R 3 -L 3 -N 1 --mp 3",
+
                     "-f",
                     "-x",
                     pathdeel5+"/"+indexName,
